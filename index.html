@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FudDoge - Arcade Pixel Meme Story</title>
+    <link rel="icon" type="image/png" href="assets/images/fuddoge.png">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="hero-content">
+            <div class="hero-logo">
+                <img src="assets/images/fuddoge.png" alt="FudDoge Logo" class="logo-image">
+            </div>
+            <h1 class="hero-title">🚀 FUD DOGE 🚀</h1>
+            <p class="hero-subtitle">Rising from chaos, heading to the moon</p>
+            <button id="startBtn" class="start-btn">START →</button>
+        </div>
+        <div class="pixel-bg"></div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="story-section">
+        <div class="story-container">
+            <div class="story-panel" id="origin">
+                <div class="story-content">
+                    <h2>🎯 ORIGIN</h2>
+                    <p>In the chaos of the crypto world, a little dog was born. With a desire for freedom and wealth, it embarked on a journey to the moon...</p>
+                    <div class="interaction">
+                        <button class="interaction-btn" data-original="🚀 Click to Launch">🚀 Click to Launch</button>
+                    </div>
+                </div>
+            </div>
+            
+
+            
+            <div class="story-panel" id="moon">
+                <div class="story-content">
+                    <h2>🌙 TO THE MOON</h2>
+                    <p>There's only one goal: the moon! This is not the end, but a new beginning. Let's create history together...</p>
+                    <div class="interaction">
+                        <button class="interaction-btn" data-original="🌙 Moon Landing">🌙 Moon Landing</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Data Section -->
+    <section id="market-data" class="market-section">
+        <div class="market-container">
+            <h2>📊 Market Data</h2>
+            <div class="price-cards">
+                <div class="price-card">
+                    <h3>BTC</h3>
+                    <p class="price" id="btc-price">$43,250</p>
+                    <span class="change positive">+2.5%</span>
+                </div>
+                <div class="price-card">
+                    <h3>ETH</h3>
+                    <p class="price" id="eth-price">$2,680</p>
+                    <span class="change positive">+1.8%</span>
+                </div>
+                <div class="price-card">
+                    <h3>SOL</h3>
+                    <p class="price" id="sol-price">$98.50</p>
+                    <span class="change negative">-0.5%</span>
+                </div>
+            </div>
+            
+            <div class="fear-greed">
+                <h3>Fear & Greed Index</h3>
+                <div class="gauge">
+                    <div class="gauge-fill" id="gauge-fill"></div>
+                    <span class="gauge-text" id="gauge-text">Greed</span>
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn buy-btn">BUY</button>
+                    <button class="action-btn wait-btn">WAIT</button>
+                </div>
+                <div class="market-controls">
+                    <button id="refresh-data" class="refresh-btn" onclick="marketDataManager.refreshData()">
+                        🔄 Refresh Data
+                    </button>
+                    <span id="last-update" class="last-update">Last Update: --:--</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Meme Arcade -->
+    <section id="arcade" class="arcade-section">
+        <div class="arcade-container">
+            <h2>🎮 MEME ARCADE</h2>
+            <div class="games-grid">
+                <div class="game-card">
+                    <h3>🐕 Doge Rocket Launch</h3>
+                    <canvas id="rocket-canvas" width="300" height="200"></canvas>
+                    <p>Click screen to launch Doge rocket, hit targets to score</p>
+                    <div class="game-controls">
+                        <span>🎯 Click to Launch | 🏆 Hit Targets to Score | ⭐ Gold Targets Double Points</span>
+                    </div>
+                    <button class="game-btn">Start Game</button>
+                </div>
+                <div class="game-card">
+                    <h3>🐕 Doge Meteor Dodge</h3>
+                    <canvas id="meteor-canvas" width="300" height="200"></canvas>
+                    <p>Control Doge spaceship to dodge meteors, survive longer for higher scores</p>
+                    <div class="game-controls">
+                        <span>🎮 WASD/Arrow Keys Move | 🛡️ S=Shield | ⏰ T=Slow Time</span>
+                    </div>
+                    <button class="game-btn">Start Game</button>
+                </div>
+                <div class="game-card">
+                    <h3>🐕 Doge Coin Catcher</h3>
+                    <canvas id="coin-canvas" width="300" height="200"></canvas>
+                    <p>Move Doge basket to catch falling coins</p>
+                    <div class="game-controls">
+                        <span>🎮 A/D/Left-Right Keys Move | 💰 Coins Score | 💣 Bombs Fatal</span>
+                    </div>
+                    <button class="game-btn">Start Game</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contract Address -->
+    <section id="how-to-buy" class="buy-section">
+        <div class="buy-container">
+            <h2>💎 Contract Address</h2>
+            <div class="ca-display">
+                <div class="ca-info">
+                    <h3>Contract Address</h3>
+                    <div class="ca-address">
+                        <span id="contract-address">0x1234567890abcdef1234567890abcdef12345678</span>
+                        <button class="copy-btn" onclick="copyToClipboard('contract-address')">📋 Copy</button>
+                    </div>
+                    <div class="ca-details">
+                        <div class="ca-item">
+                            <span class="label">Network:</span>
+                            <span class="value">Solana</span>
+                        </div>
+                        <div class="ca-item">
+                            <span class="label">Total Supply:</span>
+                            <span class="value">1B</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="buy-section">
+                    <h3>Buy</h3>
+                    <button class="buy-btn" onclick="alert('Buy feature coming soon!')">🚀 BUY NOW</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <a href="#hero" class="nav-item">Home</a>
+        <a href="#story" class="nav-item">Story</a>
+        <a href="#market-data" class="nav-item">Market</a>
+        <a href="#how-to-buy" class="nav-item">Buy</a>
+        <a href="#arcade" class="nav-item">Arcade</a>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html> 

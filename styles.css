@@ -1,0 +1,629 @@
+/* 全局样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', monospace;
+    background: linear-gradient(135deg, #FFD700, #FFA500, #FF8C00);
+    color: #333;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* 开场场景 */
+.hero-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+}
+
+.hero-title {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    text-shadow: 3px 3px 0px #FF4500;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    color: #8B4513;
+}
+
+.hero-logo {
+    margin-bottom: 2rem;
+}
+
+.logo-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid #FFD700;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    animation: logoGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes logoGlow {
+    from {
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
+    to {
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+    }
+}
+
+.start-btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1.5rem;
+    padding: 1rem 2rem;
+    background: #FF4500;
+    color: white;
+    border: 4px solid #8B0000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 5px 5px 0px #8B0000;
+}
+
+.start-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0px #8B0000;
+}
+
+/* 故事分镜 */
+.story-section {
+    min-height: 100vh;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #FFE4B5, #FFDAB9);
+}
+
+.story-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.story-panel {
+    margin-bottom: 4rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.9);
+    border: 4px solid #FF4500;
+    border-radius: 10px;
+    box-shadow: 8px 8px 0px #FF8C00;
+}
+
+.story-content h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #FF4500;
+    text-shadow: 2px 2px 0px #FFD700;
+}
+
+.interaction-btn {
+    font-family: 'Press Start 2P', monospace;
+    padding: 0.8rem 1.5rem;
+    background: #32CD32;
+    color: white;
+    border: 3px solid #228B22;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px #228B22;
+}
+
+/* 市场数据 */
+.market-section {
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #FFFACD, #F0E68C);
+}
+
+.market-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.market-container h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #FF4500;
+    text-shadow: 2px 2px 0px #FFD700;
+}
+
+.price-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.price-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border: 4px solid #FF4500;
+    border-radius: 10px;
+    box-shadow: 6px 6px 0px #FF8C00;
+}
+
+.price-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #FF4500;
+}
+
+.price {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.change.positive {
+    background: #32CD32;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 5px;
+}
+
+
+
+/* 街机游戏 */
+.arcade-section {
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #FFFACD, #F0E68C);
+}
+
+.arcade-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.arcade-container h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #FF4500;
+    text-shadow: 2px 2px 0px #FFD700;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.game-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border: 4px solid #FF4500;
+    border-radius: 10px;
+    box-shadow: 6px 6px 0px #FF8C00;
+}
+
+.game-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #FF4500;
+}
+
+.game-card canvas {
+    border: 3px solid #333;
+    background: #000;
+    margin: 1rem 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.game-btn {
+    font-family: 'Press Start 2P', monospace;
+    padding: 0.8rem 1.5rem;
+    background: #FF4500;
+    color: white;
+    border: 3px solid #8B0000;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px #8B0000;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.game-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #8B0000;
+}
+
+.game-controls {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 0.5rem;
+    border-radius: 5px;
+    margin: 0.5rem 0;
+    border: 2px solid #FF4500;
+}
+
+.game-controls span {
+    font-size: 0.8rem;
+    color: #333;
+    font-weight: bold;
+}
+
+/* 游戏结果弹窗 */
+.game-result-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.result-content {
+    background: linear-gradient(135deg, #FFE4B5, #FFDAB9);
+    padding: 2rem;
+    border: 4px solid #FF4500;
+    border-radius: 15px;
+    box-shadow: 8px 8px 0px #FF8C00;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.result-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #FF4500;
+    text-shadow: 2px 2px 0px #FFD700;
+}
+
+.result-stats {
+    margin-bottom: 1.5rem;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid #FF4500;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.stat-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #FF4500;
+}
+
+.result-message {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #FF4500;
+    margin-bottom: 1.5rem;
+}
+
+.result-btn {
+    font-family: 'Press Start 2P', monospace;
+    padding: 0.8rem 1.5rem;
+    background: #FF4500;
+    color: white;
+    border: 3px solid #8B0000;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px #8B0000;
+    transition: all 0.3s ease;
+}
+
+.result-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #8B0000;
+}
+
+/* 购买界面 */
+.buy-section {
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #E6F3FF, #B3D9FF);
+}
+
+.buy-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.buy-container h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #0066CC;
+    text-shadow: 2px 2px 0px #B3D9FF;
+}
+
+.ca-display {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border: 4px solid #0066CC;
+    border-radius: 15px;
+    box-shadow: 8px 8px 0px #004499;
+}
+
+.ca-info h3 {
+    font-size: 1.8rem;
+    color: #0066CC;
+    margin-bottom: 1.5rem;
+    text-shadow: 1px 1px 0px #B3D9FF;
+}
+
+.ca-address {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: #F0F8FF;
+    padding: 1rem;
+    border: 3px solid #0066CC;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    word-break: break-all;
+}
+
+.ca-address span {
+    color: #0066CC;
+    font-weight: bold;
+}
+
+.copy-btn {
+    padding: 0.5rem 1rem;
+    background: #0066CC;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.copy-btn:hover {
+    background: #004499;
+    transform: translateY(-1px);
+}
+
+.ca-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.ca-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    background: #F0F8FF;
+    border: 2px solid #0066CC;
+    border-radius: 8px;
+}
+
+.ca-item .label {
+    font-weight: bold;
+    color: #0066CC;
+}
+
+.ca-item .value {
+    color: #333;
+    font-weight: bold;
+}
+
+.buy-section h3 {
+    font-size: 1.5rem;
+    color: #0066CC;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 0px #B3D9FF;
+}
+
+.buy-btn {
+    font-family: 'Press Start 2P', monospace;
+    padding: 1rem 2rem;
+    background: linear-gradient(45deg, #FF6B35, #FF8C42);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 4px 4px 0px #E55A2B;
+}
+
+.buy-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 6px 6px 0px #E55A2B;
+    background: linear-gradient(45deg, #E55A2B, #FF6B35);
+}
+
+
+
+/* 导航 */
+.main-nav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 1rem;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.nav-item {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.8rem;
+    color: #FF4500;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+    background: #FF4500;
+    color: white;
+}
+
+/* 恐惧贪婪指数 */
+.fear-greed {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.fear-greed h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #FF4500;
+}
+
+.gauge {
+    width: 300px;
+    height: 30px;
+    background: #ddd;
+    border-radius: 15px;
+    margin: 0 auto 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.gauge-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #FF0000, #FFD700, #32CD32);
+    width: 60%;
+    transition: width 0.5s ease;
+}
+
+.gauge-text {
+    font-weight: bold;
+    color: #FF4500;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.action-btn {
+    font-family: 'Press Start 2P', monospace;
+    padding: 0.8rem 1.5rem;
+    border: 3px solid;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px;
+    transition: all 0.3s ease;
+}
+
+.buy-btn {
+    background: #32CD32;
+    color: white;
+    border-color: #228B22;
+    box-shadow: 4px 4px 0px #228B22;
+}
+
+.wait-btn {
+    background: #FF4500;
+    color: white;
+    border-color: #8B0000;
+    box-shadow: 4px 4px 0px #8B0000;
+}
+
+/* 市场控制按钮 */
+.market-controls {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.refresh-btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+    background: #87CEEB;
+    color: white;
+    border: 2px solid #4682B4;
+    cursor: pointer;
+    box-shadow: 3px 3px 0px #4682B4;
+    transition: all 0.3s ease;
+}
+
+.refresh-btn:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px #4682B4;
+}
+
+.refresh-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 3px 3px 0px #4682B4;
+}
+
+.last-update {
+    font-size: 0.8rem;
+    color: #666;
+    font-weight: bold;
+}
+
+/* 价格变化动画 */
+.price-change {
+    transition: all 0.3s ease;
+}
+
+.price-change.up {
+    animation: priceUp 0.3s ease;
+}
+
+.price-change.down {
+    animation: priceDown 0.3s ease;
+}
+
+@keyframes priceUp {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); color: #32CD32; }
+    100% { transform: scale(1); }
+}
+
+@keyframes priceDown {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.9); color: #FF4500; }
+    100% { transform: scale(1); }
+}
+
+/* 任务列表样式 */
+
+
+
+
+/* 动画效果 */
+@keyframes glow {
+    from {
+        text-shadow: 3px 3px 0px #FF4500;
+    }
+    to {
+        text-shadow: 3px 3px 20px #FF4500, 3px 3px 0px #FF4500;
+    }
+} 
