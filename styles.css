@@ -485,6 +485,31 @@ body {
     color: white;
 }
 
+/* Twitter button styles */
+.twitter-btn {
+    background: #1DA1F2;
+    color: white;
+    border: 2px solid #0D8BD9;
+    box-shadow: 3px 3px 0px #0D8BD9;
+    animation: twitterGlow 2s ease-in-out infinite alternate;
+}
+
+.twitter-btn:hover {
+    background: #0D8BD9;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(29, 161, 242, 0.5);
+}
+
+@keyframes twitterGlow {
+    from {
+        box-shadow: 3px 3px 0px #0D8BD9;
+    }
+    to {
+        box-shadow: 3px 3px 0px #0D8BD9, 0 0 10px rgba(29, 161, 242, 0.5);
+    }
+}
+
 /* 恐惧贪婪指数 */
 .fear-greed {
     margin-top: 3rem;
