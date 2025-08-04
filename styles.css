@@ -445,12 +445,23 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 4px 4px 0px #E55A2B;
+    animation: buyButtonGlow 2s ease-in-out infinite alternate;
 }
 
 .buy-btn:hover {
     transform: translateY(-2px);
     box-shadow: 6px 6px 0px #E55A2B;
     background: linear-gradient(45deg, #E55A2B, #FF6B35);
+    animation: buyButtonGlow 1s ease-in-out infinite alternate;
+}
+
+@keyframes buyButtonGlow {
+    from {
+        box-shadow: 4px 4px 0px #E55A2B, 0 0 10px rgba(255, 107, 53, 0.5);
+    }
+    to {
+        box-shadow: 4px 4px 0px #E55A2B, 0 0 20px rgba(255, 107, 53, 0.8), 0 0 30px rgba(255, 140, 66, 0.6);
+    }
 }
 
 
@@ -485,30 +496,7 @@ body {
     color: white;
 }
 
-/* Twitter button styles */
-.twitter-btn {
-    background: #1DA1F2;
-    color: white;
-    border: 2px solid #0D8BD9;
-    box-shadow: 3px 3px 0px #0D8BD9;
-    animation: twitterGlow 2s ease-in-out infinite alternate;
-}
 
-.twitter-btn:hover {
-    background: #0D8BD9;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(29, 161, 242, 0.5);
-}
-
-@keyframes twitterGlow {
-    from {
-        box-shadow: 3px 3px 0px #0D8BD9;
-    }
-    to {
-        box-shadow: 3px 3px 0px #0D8BD9, 0 0 10px rgba(29, 161, 242, 0.5);
-    }
-}
 
 /* 恐惧贪婪指数 */
 .fear-greed {
