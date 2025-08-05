@@ -649,9 +649,24 @@
                 this.uploadLogoBtn.textContent = 'Uploading...';
 
                 try {
-                    await new Promise(resolve => setTimeout(resolve, 2000));
-                    this.showStatus('Logo uploaded successfully!', 'success');
-                    this.refreshPreview();
+                    const formData = new FormData();
+                    formData.append('logo', file);
+
+                    const response = await fetch('/api/upload-logo', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        this.showStatus('Logo uploaded successfully!', 'success');
+                        this.refreshPreview();
+                        // Update current logo preview
+                        this.currentLogo.src = 'assets/images/fuddoge.png?' + new Date().getTime();
+                    } else {
+                        throw new Error(result.error);
+                    }
                 } catch (error) {
                     this.showStatus('Error uploading logo: ' + error.message, 'error');
                 } finally {
@@ -674,10 +689,22 @@
                         moonContent: this.moonContent.value
                     };
 
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    this.updatePreviewContent(content);
-                    this.showStatus('Text content saved successfully!', 'success');
-                    this.refreshPreview();
+                    const response = await fetch('/api/update-content', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(content)
+                    });
+
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        this.showStatus('Text content saved successfully!', 'success');
+                        this.refreshPreview();
+                    } else {
+                        throw new Error(result.error);
+                    }
                 } catch (error) {
                     this.showStatus('Error saving content: ' + error.message, 'error');
                 } finally {

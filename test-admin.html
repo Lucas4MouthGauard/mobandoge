@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Admin</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .login { background: #f0f0f0; padding: 20px; border-radius: 10px; }
+        .dashboard { display: none; background: #e0e0e0; padding: 20px; border-radius: 10px; }
+        input, button { margin: 10px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <div id="login" class="login">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+    </div>
+    
+    <div id="dashboard" class="dashboard">
+        <h2>Dashboard</h2>
+        <p>Welcome to the admin panel!</p>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === 'admin' && password === 'fuddoge2025') {
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+            } else {
+                alert('Invalid credentials');
+            }
+        }
+        
+        function logout() {
+            document.getElementById('login').style.display = 'block';
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+    </script>
+</body>
+</html>
