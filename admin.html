@@ -3,16 +3,377 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Dashboard</title>
-    <link rel="stylesheet" href="admin.css">
+    <title>FudDoge Admin Panel</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Press Start 2P', monospace;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h2 {
+            font-size: 1.5rem;
+            color: #2a5298;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            font-size: 0.7rem;
+            color: #666;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .input-group label {
+            font-size: 0.7rem;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 15px rgba(42, 82, 152, 0.3);
+        }
+
+        .login-btn {
+            font-family: 'Press Start 2P', monospace;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #2a5298, #667eea);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 82, 152, 0.4);
+        }
+
+        .login-error {
+            color: #e74c3c;
+            font-size: 0.7rem;
+            text-align: center;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: rgba(231, 76, 60, 0.1);
+            border-radius: 5px;
+            display: none;
+        }
+
+        .admin-dashboard {
+            min-height: 100vh;
+            background: #f8f9fa;
+            display: none;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header-content h1 {
+            font-size: 1.5rem;
+        }
+
+        .logout-btn {
+            font-family: 'Press Start 2P', monospace;
+            padding: 0.5rem 1rem;
+            background: rgba(231, 76, 60, 0.8);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.6rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #e74c3c;
+        }
+
+        .dashboard-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .content-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .content-section h3 {
+            font-size: 1.2rem;
+            color: #2a5298;
+            margin-bottom: 1.5rem;
+        }
+
+        .current-asset {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .asset-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #2a5298;
+            box-shadow: 0 0 20px rgba(42, 82, 152, 0.3);
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .upload-area {
+            border: 3px dashed #2a5298;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+            background: rgba(42, 82, 152, 0.05);
+        }
+
+        .upload-area:hover {
+            background: rgba(42, 82, 152, 0.1);
+            border-color: #667eea;
+        }
+
+        .upload-placeholder span {
+            font-size: 1rem;
+            color: #2a5298;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .upload-placeholder p {
+            font-size: 0.6rem;
+            color: #666;
+        }
+
+        .text-fields {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .field-group label {
+            font-size: 0.7rem;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .form-input, .form-textarea {
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 15px rgba(42, 82, 152, 0.3);
+        }
+
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .action-btn {
+            font-family: 'Press Start 2P', monospace;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #2a5298, #667eea);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .action-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(42, 82, 152, 0.4);
+        }
+
+        .action-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .preview-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .preview-header h3 {
+            font-size: 1.2rem;
+            color: #2a5298;
+        }
+
+        .preview-frame {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            background: white;
+        }
+
+        .status-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            max-width: 300px;
+        }
+
+        .status-message.show {
+            transform: translateX(0);
+        }
+
+        .status-message.success {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-message.error {
+            background: #dc3545;
+            color: white;
+        }
+
+        .status-message.info {
+            background: #17a2b8;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-content {
+                padding: 1rem;
+            }
+            
+            .preview-frame {
+                height: 400px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Login Screen -->
     <div id="login-screen" class="login-screen">
         <div class="login-container">
             <div class="login-header">
-                <h2>🔐 System Access</h2>
+                <h2>System Access</h2>
                 <p>Enter credentials to continue</p>
             </div>
             <form id="login-form" class="login-form">
@@ -31,164 +392,81 @@
     </div>
 
     <!-- Admin Dashboard -->
-    <div id="admin-dashboard" class="admin-dashboard" style="display: none;">
+    <div id="admin-dashboard" class="admin-dashboard">
         <header class="dashboard-header">
             <div class="header-content">
-                <h1>🐕 FudDoge Management Console</h1>
-                <div class="header-controls">
-                    <span id="session-timer" class="session-timer">Session: 30:00</span>
-                    <button id="logout-btn" class="logout-btn">Logout</button>
-                </div>
+                <h1>FudDoge Management Console</h1>
+                <button id="logout-btn" class="logout-btn">Logout</button>
             </div>
         </header>
 
         <div class="dashboard-content">
-            <!-- Navigation Tabs -->
-            <nav class="dashboard-nav">
-                <button class="nav-tab active" data-tab="content">Content Management</button>
-                <button class="nav-tab" data-tab="assets">Asset Management</button>
-                <button class="nav-tab" data-tab="preview">Live Preview</button>
-                <button class="nav-tab" data-tab="logs">System Logs</button>
-            </nav>
-
-            <!-- Content Management Tab -->
-            <div id="content-tab" class="tab-content active">
-                <div class="content-grid">
-                    <section class="content-section">
-                        <h3>🎨 Logo Management</h3>
-                        <div class="current-asset">
-                            <h4>Current Logo:</h4>
-                            <img id="current-logo" src="assets/images/fuddoge.png" alt="Current Logo" class="asset-preview">
-                            <div class="asset-info">
-                                <span>Size: 500x500px</span>
-                                <span>Format: PNG</span>
+            <div class="content-grid">
+                <section class="content-section">
+                    <h3>Logo Management</h3>
+                    <div class="current-asset">
+                        <h4>Current Logo:</h4>
+                        <img id="current-logo" src="assets/images/fuddoge.png" alt="Current Logo" class="asset-preview">
+                    </div>
+                    
+                    <div class="upload-section">
+                        <h4>Upload New Logo:</h4>
+                        <div class="upload-area" id="logo-upload-area">
+                            <input type="file" id="logo-input" accept="image/*" style="display: none;">
+                            <div class="upload-placeholder">
+                                <span>Drop file here or click to browse</span>
+                                <p>Supported: PNG, JPG, JPEG, GIF (Max: 5MB)</p>
                             </div>
                         </div>
-                        
-                        <div class="upload-section">
-                            <h4>Upload New Logo:</h4>
-                            <div class="upload-area" id="logo-upload-area">
-                                <input type="file" id="logo-input" accept="image/*" style="display: none;">
-                                <div class="upload-placeholder">
-                                    <span>📁 Drop file here or click to browse</span>
-                                    <p>Supported: PNG, JPG, JPEG, GIF (Max: 5MB)</p>
-                                </div>
-                            </div>
-                            <button id="upload-logo-btn" class="action-btn" disabled>Upload Logo</button>
+                        <button id="upload-logo-btn" class="action-btn" disabled>Upload Logo</button>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h3>Text Content</h3>
+                    <div class="text-fields">
+                        <div class="field-group">
+                            <label for="hero-title">Hero Title:</label>
+                            <input type="text" id="hero-title" value="FUD DOGE" class="form-input">
                         </div>
-                    </section>
 
-                    <section class="content-section">
-                        <h3>📝 Text Content</h3>
-                        <div class="text-fields">
-                            <div class="field-group">
-                                <label for="hero-title">Hero Title:</label>
-                                <input type="text" id="hero-title" value="🚀 FUD DOGE 🚀" class="form-input">
-                            </div>
-
-                            <div class="field-group">
-                                <label for="hero-subtitle">Hero Subtitle:</label>
-                                <input type="text" id="hero-subtitle" value="Rising from chaos, heading to the moon" class="form-input">
-                            </div>
-
-                            <div class="field-group">
-                                <label for="origin-title">Origin Title:</label>
-                                <input type="text" id="origin-title" value="�� ORIGIN" class="form-input">
-                            </div>
-
-                            <div class="field-group">
-                                <label for="origin-content">Origin Content:</label>
-                                <textarea id="origin-content" class="form-textarea">In the chaos of the crypto world, a little dog was born. With a desire for freedom and wealth, it embarked on a journey to the moon...</textarea>
-                            </div>
-
-                            <div class="field-group">
-                                <label for="moon-title">Moon Title:</label>
-                                <input type="text" id="moon-title" value="🌙 TO THE MOON" class="form-input">
-                            </div>
-
-                            <div class="field-group">
-                                <label for="moon-content">Moon Content:</label>
-                                <textarea id="moon-content" class="form-textarea">There's only one goal: the moon! This is not the end, but a new beginning. Let's create history together...</textarea>
-                            </div>
-
-                            <button id="save-content-btn" class="action-btn">Save Content</button>
+                        <div class="field-group">
+                            <label for="hero-subtitle">Hero Subtitle:</label>
+                            <input type="text" id="hero-subtitle" value="Rising from chaos, heading to the moon" class="form-input">
                         </div>
-                    </section>
-                </div>
+
+                        <div class="field-group">
+                            <label for="origin-title">Origin Title:</label>
+                            <input type="text" id="origin-title" value="ORIGIN" class="form-input">
+                        </div>
+
+                        <div class="field-group">
+                            <label for="origin-content">Origin Content:</label>
+                            <textarea id="origin-content" class="form-textarea">In the chaos of the crypto world, a little dog was born. With a desire for freedom and wealth, it embarked on a journey to the moon...</textarea>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="moon-title">Moon Title:</label>
+                            <input type="text" id="moon-title" value="TO THE MOON" class="form-input">
+                        </div>
+
+                        <div class="field-group">
+                            <label for="moon-content">Moon Content:</label>
+                            <textarea id="moon-content" class="form-textarea">There is only one goal: the moon! This is not the end, but a new beginning. Let us create history together...</textarea>
+                        </div>
+
+                        <button id="save-content-btn" class="action-btn">Save Content</button>
+                    </div>
+                </section>
             </div>
 
-            <!-- Asset Management Tab -->
-            <div id="assets-tab" class="tab-content">
-                <div class="assets-grid">
-                    <section class="asset-section">
-                        <h3>📁 File Management</h3>
-                        <div class="file-list">
-                            <div class="file-item">
-                                <span class="file-name">fuddoge.png</span>
-                                <span class="file-size">241KB</span>
-                                <span class="file-type">PNG</span>
-                                <button class="file-action">Replace</button>
-                            </div>
-                            <div class="file-item">
-                                <span class="file-name">ogdoge.png</span>
-                                <span class="file-size">220KB</span>
-                                <span class="file-type">PNG</span>
-                                <button class="file-action">Replace</button>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="asset-section">
-                        <h3>📊 System Status</h3>
-                        <div class="status-grid">
-                            <div class="status-item">
-                                <span class="status-label">Server Status:</span>
-                                <span class="status-value online">Online</span>
-                            </div>
-                            <div class="status-item">
-                                <span class="status-label">Last Backup:</span>
-                                <span class="status-value">2 hours ago</span>
-                            </div>
-                            <div class="status-item">
-                                <span class="status-label">Storage Used:</span>
-                                <span class="status-value">461KB / 1GB</span>
-                            </div>
-                        </div>
-                    </section>
+            <!-- Preview Section -->
+            <div class="preview-container">
+                <div class="preview-header">
+                    <h3>Live Preview</h3>
+                    <button id="refresh-preview-btn" class="action-btn">Refresh Preview</button>
                 </div>
-            </div>
-
-            <!-- Live Preview Tab -->
-            <div id="preview-tab" class="tab-content">
-                <div class="preview-container">
-                    <div class="preview-header">
-                        <h3>👀 Live Preview</h3>
-                        <button id="refresh-preview-btn" class="action-btn">Refresh Preview</button>
-                    </div>
-                    <iframe id="preview-frame" src="index.html" class="preview-frame"></iframe>
-                </div>
-            </div>
-
-            <!-- System Logs Tab -->
-            <div id="logs-tab" class="tab-content">
-                <div class="logs-container">
-                    <div class="logs-header">
-                        <h3>📋 System Logs</h3>
-                        <button id="clear-logs-btn" class="action-btn">Clear Logs</button>
-                    </div>
-                    <div id="logs-content" class="logs-content">
-                        <div class="log-entry">
-                            <span class="log-time">[2025-08-05 10:03:52]</span>
-                            <span class="log-level info">INFO</span>
-                            <span class="log-message">System initialized successfully</span>
-                        </div>
-                        <div class="log-entry">
-                            <span class="log-time">[2025-08-05 10:22:10]</span>
-                            <span class="log-level success">SUCCESS</span>
-                            <span class="log-message">Admin panel accessed</span>
-                        </div>
-                    </div>
-                </div>
+                <iframe id="preview-frame" src="index.html" class="preview-frame"></iframe>
             </div>
         </div>
 
@@ -196,6 +474,259 @@
         <div id="status-message" class="status-message"></div>
     </div>
 
-    <script src="admin.js"></script>
+    <script>
+        // Admin Panel JavaScript
+        class AdminPanel {
+            constructor() {
+                this.credentials = {
+                    username: 'admin',
+                    password: 'fuddoge2025'
+                };
+                
+                this.initializeElements();
+                this.setupEventListeners();
+            }
+
+            initializeElements() {
+                this.loginScreen = document.getElementById('login-screen');
+                this.loginForm = document.getElementById('login-form');
+                this.loginError = document.getElementById('login-error');
+                this.adminDashboard = document.getElementById('admin-dashboard');
+                this.logoutBtn = document.getElementById('logout-btn');
+                this.logoInput = document.getElementById('logo-input');
+                this.logoUploadArea = document.getElementById('logo-upload-area');
+                this.uploadLogoBtn = document.getElementById('upload-logo-btn');
+                this.currentLogo = document.getElementById('current-logo');
+                this.heroTitle = document.getElementById('hero-title');
+                this.heroSubtitle = document.getElementById('hero-subtitle');
+                this.originTitle = document.getElementById('origin-title');
+                this.originContent = document.getElementById('origin-content');
+                this.moonTitle = document.getElementById('moon-title');
+                this.moonContent = document.getElementById('moon-content');
+                this.saveContentBtn = document.getElementById('save-content-btn');
+                this.refreshPreviewBtn = document.getElementById('refresh-preview-btn');
+                this.previewFrame = document.getElementById('preview-frame');
+            }
+
+            setupEventListeners() {
+                this.loginForm.addEventListener('submit', (e) => this.handleLogin(e));
+                this.logoutBtn.addEventListener('click', () => this.handleLogout());
+                this.logoUploadArea.addEventListener('click', () => this.logoInput.click());
+                this.logoInput.addEventListener('change', (e) => this.handleLogoUpload(e));
+                this.uploadLogoBtn.addEventListener('click', () => this.uploadLogo());
+                this.saveContentBtn.addEventListener('click', () => this.saveTextContent());
+                this.refreshPreviewBtn.addEventListener('click', () => this.refreshPreview());
+
+                // Drag and drop
+                this.logoUploadArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    this.logoUploadArea.style.background = 'rgba(42, 82, 152, 0.2)';
+                });
+
+                this.logoUploadArea.addEventListener('dragleave', () => {
+                    this.logoUploadArea.style.background = 'rgba(42, 82, 152, 0.05)';
+                });
+
+                this.logoUploadArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    this.logoUploadArea.style.background = 'rgba(42, 82, 152, 0.05)';
+                    const files = e.dataTransfer.files;
+                    if (files.length > 0) {
+                        this.logoInput.files = files;
+                        this.handleLogoUpload({ target: { files } });
+                    }
+                });
+            }
+
+            handleLogin(event) {
+                event.preventDefault();
+                
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                if (username === this.credentials.username && password === this.credentials.password) {
+                    this.authenticate();
+                } else {
+                    this.showLoginError('Invalid credentials. Please try again.');
+                }
+            }
+
+            authenticate() {
+                this.loginScreen.style.display = 'none';
+                this.adminDashboard.style.display = 'block';
+                this.loadCurrentContent();
+                this.showStatus('Login successful!', 'success');
+            }
+
+            handleLogout() {
+                this.loginScreen.style.display = 'flex';
+                this.adminDashboard.style.display = 'none';
+                this.loginForm.reset();
+                this.loginError.style.display = 'none';
+                this.showStatus('Logged out successfully', 'info');
+            }
+
+            showLoginError(message) {
+                this.loginError.textContent = message;
+                this.loginError.style.display = 'block';
+                
+                setTimeout(() => {
+                    this.loginError.style.display = 'none';
+                }, 3000);
+            }
+
+            loadCurrentContent() {
+                fetch('index.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        
+                        const heroTitleEl = doc.querySelector('.hero-title');
+                        const heroSubtitleEl = doc.querySelector('.hero-subtitle');
+                        const originTitleEl = doc.querySelector('#origin .story-content h2');
+                        const originContentEl = doc.querySelector('#origin .story-content p');
+                        const moonTitleEl = doc.querySelector('#moon .story-content h2');
+                        const moonContentEl = doc.querySelector('#moon .story-content p');
+
+                        if (heroTitleEl) this.heroTitle.value = heroTitleEl.textContent;
+                        if (heroSubtitleEl) this.heroSubtitle.value = heroSubtitleEl.textContent;
+                        if (originTitleEl) this.originTitle.value = originTitleEl.textContent;
+                        if (originContentEl) this.originContent.value = originContentEl.textContent;
+                        if (moonTitleEl) this.moonTitle.value = moonTitleEl.textContent;
+                        if (moonContentEl) this.moonContent.value = moonContentEl.textContent;
+                    })
+                    .catch(error => {
+                        console.error('Error loading current content:', error);
+                        this.showStatus('Error loading current content', 'error');
+                    });
+            }
+
+            handleLogoUpload(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    if (this.validateImageFile(file)) {
+                        this.previewLogo(file);
+                        this.uploadLogoBtn.disabled = false;
+                        this.showStatus('Logo selected successfully', 'success');
+                    } else {
+                        this.showStatus('Please select a valid image file (PNG, JPG, JPEG, GIF)', 'error');
+                    }
+                }
+            }
+
+            validateImageFile(file) {
+                const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif'];
+                const maxSize = 5 * 1024 * 1024; // 5MB
+
+                if (!validTypes.includes(file.type)) {
+                    return false;
+                }
+
+                if (file.size > maxSize) {
+                    return false;
+                }
+
+                return true;
+            }
+
+            previewLogo(file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    this.currentLogo.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+
+            async uploadLogo() {
+                const file = this.logoInput.files[0];
+                if (!file) {
+                    this.showStatus('Please select a logo file first', 'error');
+                    return;
+                }
+
+                this.uploadLogoBtn.disabled = true;
+                this.uploadLogoBtn.textContent = 'Uploading...';
+
+                try {
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    this.showStatus('Logo uploaded successfully!', 'success');
+                    this.refreshPreview();
+                } catch (error) {
+                    this.showStatus('Error uploading logo: ' + error.message, 'error');
+                } finally {
+                    this.uploadLogoBtn.disabled = false;
+                    this.uploadLogoBtn.textContent = 'Upload Logo';
+                }
+            }
+
+            async saveTextContent() {
+                this.saveContentBtn.disabled = true;
+                this.saveContentBtn.textContent = 'Saving...';
+
+                try {
+                    const content = {
+                        heroTitle: this.heroTitle.value,
+                        heroSubtitle: this.heroSubtitle.value,
+                        originTitle: this.originTitle.value,
+                        originContent: this.originContent.value,
+                        moonTitle: this.moonTitle.value,
+                        moonContent: this.moonContent.value
+                    };
+
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    this.updatePreviewContent(content);
+                    this.showStatus('Text content saved successfully!', 'success');
+                    this.refreshPreview();
+                } catch (error) {
+                    this.showStatus('Error saving content: ' + error.message, 'error');
+                } finally {
+                    this.saveContentBtn.disabled = false;
+                    this.saveContentBtn.textContent = 'Save Content';
+                }
+            }
+
+            updatePreviewContent(content) {
+                const iframe = this.previewFrame;
+                if (iframe.contentDocument) {
+                    const doc = iframe.contentDocument;
+                    
+                    const heroTitle = doc.querySelector('.hero-title');
+                    const heroSubtitle = doc.querySelector('.hero-subtitle');
+                    const originTitle = doc.querySelector('#origin .story-content h2');
+                    const originContent = doc.querySelector('#origin .story-content p');
+                    const moonTitle = doc.querySelector('#moon .story-content h2');
+                    const moonContent = doc.querySelector('#moon .story-content p');
+                    
+                    if (heroTitle) heroTitle.textContent = content.heroTitle;
+                    if (heroSubtitle) heroSubtitle.textContent = content.heroSubtitle;
+                    if (originTitle) originTitle.textContent = content.originTitle;
+                    if (originContent) originContent.textContent = content.originContent;
+                    if (moonTitle) moonTitle.textContent = content.moonTitle;
+                    if (moonContent) moonContent.textContent = content.moonContent;
+                }
+            }
+
+            refreshPreview() {
+                this.previewFrame.src = this.previewFrame.src;
+                this.showStatus('Preview refreshed', 'info');
+            }
+
+            showStatus(message, type = 'info') {
+                const statusEl = document.getElementById('status-message');
+                statusEl.textContent = message;
+                statusEl.className = `status-message ${type} show`;
+                
+                setTimeout(() => {
+                    statusEl.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        // Initialize admin panel when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new AdminPanel();
+        });
+    </script>
 </body>
 </html>
