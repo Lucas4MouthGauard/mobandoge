@@ -1,1 +1,201 @@
- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <h2>🔐 System Access</h2>
+                <p>Enter credentials to continue</p>
+            </div>
+            <form id="login-form" class="login-form">
+                <div class="input-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-btn">Access System</button>
+            </form>
+            <div id="login-error" class="login-error"></div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="admin-dashboard" style="display: none;">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>🐕 FudDoge Management Console</h1>
+                <div class="header-controls">
+                    <span id="session-timer" class="session-timer">Session: 30:00</span>
+                    <button id="logout-btn" class="logout-btn">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+            <!-- Navigation Tabs -->
+            <nav class="dashboard-nav">
+                <button class="nav-tab active" data-tab="content">Content Management</button>
+                <button class="nav-tab" data-tab="assets">Asset Management</button>
+                <button class="nav-tab" data-tab="preview">Live Preview</button>
+                <button class="nav-tab" data-tab="logs">System Logs</button>
+            </nav>
+
+            <!-- Content Management Tab -->
+            <div id="content-tab" class="tab-content active">
+                <div class="content-grid">
+                    <section class="content-section">
+                        <h3>🎨 Logo Management</h3>
+                        <div class="current-asset">
+                            <h4>Current Logo:</h4>
+                            <img id="current-logo" src="assets/images/fuddoge.png" alt="Current Logo" class="asset-preview">
+                            <div class="asset-info">
+                                <span>Size: 500x500px</span>
+                                <span>Format: PNG</span>
+                            </div>
+                        </div>
+                        
+                        <div class="upload-section">
+                            <h4>Upload New Logo:</h4>
+                            <div class="upload-area" id="logo-upload-area">
+                                <input type="file" id="logo-input" accept="image/*" style="display: none;">
+                                <div class="upload-placeholder">
+                                    <span>📁 Drop file here or click to browse</span>
+                                    <p>Supported: PNG, JPG, JPEG, GIF (Max: 5MB)</p>
+                                </div>
+                            </div>
+                            <button id="upload-logo-btn" class="action-btn" disabled>Upload Logo</button>
+                        </div>
+                    </section>
+
+                    <section class="content-section">
+                        <h3>📝 Text Content</h3>
+                        <div class="text-fields">
+                            <div class="field-group">
+                                <label for="hero-title">Hero Title:</label>
+                                <input type="text" id="hero-title" value="🚀 FUD DOGE 🚀" class="form-input">
+                            </div>
+
+                            <div class="field-group">
+                                <label for="hero-subtitle">Hero Subtitle:</label>
+                                <input type="text" id="hero-subtitle" value="Rising from chaos, heading to the moon" class="form-input">
+                            </div>
+
+                            <div class="field-group">
+                                <label for="origin-title">Origin Title:</label>
+                                <input type="text" id="origin-title" value="�� ORIGIN" class="form-input">
+                            </div>
+
+                            <div class="field-group">
+                                <label for="origin-content">Origin Content:</label>
+                                <textarea id="origin-content" class="form-textarea">In the chaos of the crypto world, a little dog was born. With a desire for freedom and wealth, it embarked on a journey to the moon...</textarea>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="moon-title">Moon Title:</label>
+                                <input type="text" id="moon-title" value="🌙 TO THE MOON" class="form-input">
+                            </div>
+
+                            <div class="field-group">
+                                <label for="moon-content">Moon Content:</label>
+                                <textarea id="moon-content" class="form-textarea">There's only one goal: the moon! This is not the end, but a new beginning. Let's create history together...</textarea>
+                            </div>
+
+                            <button id="save-content-btn" class="action-btn">Save Content</button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Asset Management Tab -->
+            <div id="assets-tab" class="tab-content">
+                <div class="assets-grid">
+                    <section class="asset-section">
+                        <h3>📁 File Management</h3>
+                        <div class="file-list">
+                            <div class="file-item">
+                                <span class="file-name">fuddoge.png</span>
+                                <span class="file-size">241KB</span>
+                                <span class="file-type">PNG</span>
+                                <button class="file-action">Replace</button>
+                            </div>
+                            <div class="file-item">
+                                <span class="file-name">ogdoge.png</span>
+                                <span class="file-size">220KB</span>
+                                <span class="file-type">PNG</span>
+                                <button class="file-action">Replace</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="asset-section">
+                        <h3>📊 System Status</h3>
+                        <div class="status-grid">
+                            <div class="status-item">
+                                <span class="status-label">Server Status:</span>
+                                <span class="status-value online">Online</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">Last Backup:</span>
+                                <span class="status-value">2 hours ago</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-label">Storage Used:</span>
+                                <span class="status-value">461KB / 1GB</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Live Preview Tab -->
+            <div id="preview-tab" class="tab-content">
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <h3>👀 Live Preview</h3>
+                        <button id="refresh-preview-btn" class="action-btn">Refresh Preview</button>
+                    </div>
+                    <iframe id="preview-frame" src="index.html" class="preview-frame"></iframe>
+                </div>
+            </div>
+
+            <!-- System Logs Tab -->
+            <div id="logs-tab" class="tab-content">
+                <div class="logs-container">
+                    <div class="logs-header">
+                        <h3>📋 System Logs</h3>
+                        <button id="clear-logs-btn" class="action-btn">Clear Logs</button>
+                    </div>
+                    <div id="logs-content" class="logs-content">
+                        <div class="log-entry">
+                            <span class="log-time">[2025-08-05 10:03:52]</span>
+                            <span class="log-level info">INFO</span>
+                            <span class="log-message">System initialized successfully</span>
+                        </div>
+                        <div class="log-entry">
+                            <span class="log-time">[2025-08-05 10:22:10]</span>
+                            <span class="log-level success">SUCCESS</span>
+                            <span class="log-message">Admin panel accessed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Messages -->
+        <div id="status-message" class="status-message"></div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>
